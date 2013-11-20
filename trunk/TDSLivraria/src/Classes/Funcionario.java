@@ -10,6 +10,7 @@ package Classes;
  *
  * @author marcio
  */
-public class Funcionario {
+public class Funcionario extends Pessoa {
+    
     
 }

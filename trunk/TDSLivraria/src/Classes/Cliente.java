@@ -10,6 +10,7 @@ package Classes;
  *
  * @author marcio
  */
-public class Cliente {
+public class Cliente extends Pessoa{
+    
     
 }
