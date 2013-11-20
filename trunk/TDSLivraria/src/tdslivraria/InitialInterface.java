@@ -22,7 +22,7 @@ public class InitialInterface extends javax.swing.JFrame {
      */
     public InitialInterface() {
         initComponents();
-    }
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
