@@ -112,6 +112,7 @@ public class Login extends javax.swing.JFrame {
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLoginActionPerformed
       InitialInterface inter = new InitialInterface();
       inter.setVisible(true);
+      inter.setLocationRelativeTo(null);
       this.setVisible(false);
       
       
@@ -151,7 +152,10 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+               Login i;
+                i = new Login();
+               i.setVisible(true);
+               i.setLocationRelativeTo(null);
                 
             }
         });
