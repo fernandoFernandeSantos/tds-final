@@ -12,9 +12,5 @@ import Classes.DB;
  */
 public class teste {
     
-    public static void main(String[] args){
-        DB.getInstance();
-        
-        System.out.println("ashuas");
-    }
+
 }
