@@ -114,6 +114,8 @@ public class Login extends javax.swing.JFrame {
       inter.setVisible(true);
       inter.setLocationRelativeTo(null);
       this.setVisible(false);
+      inter.setMenuAdmin(false);
+     
       
       
     }//GEN-LAST:event_botaoLoginActionPerformed
