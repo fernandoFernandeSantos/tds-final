@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package tdslivraria;
 
 import Classes.DB;
+import Classes.Funcionario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -117,43 +117,37 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordBoxActionPerformed
 
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLoginActionPerformed
-      
-        String select = "SELECT id_funcionario, funcao ";
-        String from = "FROM funcionarios ";
-        String where = "WHERE senha = '" + new String(this.passwordBox.getPassword()) + "' AND UPPER(nome) = UPPER('" + this.userBox.getText()+"')";
-        
-//        String a = new String(this.passwordBox.getPassword());
-//        String where = "WHERE nome = '" + this.userBox.getText()+"'";
-        
-        System.out.println(select + from + where);
-        ResultSet res = DB.getInstance().pesquisa(select + from + where);
-        
-        InitialInterface inter;
-        try {
-            if(res.next()){
-                if("gerente".equals(res.getString("funcao"))){
-                    System.out.println("asdasdsad");
-                    inter = new InitialInterface(res.getString("funcao"), res.getInt("id_funcionario"));
-                    inter.setMenuAdmin(true);
-                    inter.setVisible(true);
-                    this.setVisible(false);
-                }else if("vendedor".equals(res.getString("funcao"))){
-                    inter = new InitialInterface(res.getString("funcao"), res.getInt("id_funcionario"));
-                    inter.setVisible(true);
-                    inter.setMenuAdmin(false);
-                    this.setVisible(false);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Voce nao tem permisao apra acessar o sistema");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "LOgin ou senha incorretos");
-            }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//        String select = "SELECT id_funcionario, funcao ";
+//        String from = "FROM funcionarios ";
+//        String where = "WHERE senha = '" + new String(this.passwordBox.getPassword()) + "' AND UPPER(login) = UPPER('" + this.userBox.getText()+"')";
+//        
+//        ResultSet res = DB.getInstance().pesquisa(select + from + where);
+//        
+        InitialInterface inter;
+
+        Funcionario f = Funcionario.logar(this.userBox.getText(), new String(this.passwordBox.getPassword()), DB.getInstance());
+        if (f != null) {
+            if ("gerente".equals(f.getFuncao())) {
+                System.out.println("asdasdsad");
+                inter = new InitialInterface(f.getFuncao(), f.getId());
+                inter.setMenuAdmin(true);
+                inter.setVisible(true);
+                this.setVisible(false);
+            } else if ("vendedor".equals(f.getFuncao())) {
+                inter = new InitialInterface(f.getFuncao(), f.getId());
+                inter.setVisible(true);
+                inter.setMenuAdmin(false);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "Voce nao tem permisao para acessar o sistema");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "LOgin ou senha incorretos");
         }
-      
-      
+
+
+
     }//GEN-LAST:event_botaoLoginActionPerformed
 
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
@@ -190,15 +184,14 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               Login i;
+                Login i;
                 i = new Login();
-               i.setVisible(true);
-               i.setLocationRelativeTo(null);
-                
+                i.setVisible(true);
+                i.setLocationRelativeTo(null);
+
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoLogin;
     private javax.swing.JButton botaoSair;
