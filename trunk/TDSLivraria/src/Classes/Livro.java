@@ -6,6 +6,8 @@
 
 package Classes;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author marcio
@@ -20,15 +22,16 @@ public class Livro {
     private String autores;
     private String editora;
     private String isbn;
-    private String edicao;
+    private int edicao;
     private int numeroPaginas;
     private String categoria;
     private int id;
+    private float preco;
 
     public Livro() {
     }
 
-    public Livro(String titulo, String autores, String editora, String isbn, String edicao, int numeroPaginas, String categoria) {
+    public Livro(String titulo, String autores, String editora, String isbn, int edicao, int numeroPaginas, String categoria, float preco) {
         this.titulo = titulo;
         this.autores = autores;
         this.editora = editora;
@@ -36,8 +39,12 @@ public class Livro {
         this.edicao = edicao;
         this.numeroPaginas = numeroPaginas;
         this.categoria = categoria;
+        this.preco = preco;
     }
-
+    
+    public void setPreco(float preco){
+        this.preco = preco;
+    }
     public String getTitulo() {
         return titulo;
     }
@@ -70,11 +77,11 @@ public class Livro {
         this.isbn = isbn;
     }
 
-    public String getEdicao() {
+    public int getEdicao() {
         return edicao;
     }
 
-    public void setEdicao(String edicao) {
+    public void setEdicao(int edicao) {
         this.edicao = edicao;
     }
 
@@ -92,6 +99,18 @@ public class Livro {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public boolean cadastra() {
+        ResultSet rs;
+       
+        try{
+            DB.getInstance().insere ("INSERT INTO livros VALUES (default, '" + this.titulo + "', '" + this.autores + "', '" + this.editora+ "', '"+ this.isbn+ "', "+ this.edicao+ ", "+ this.numeroPaginas+ ", "+ this.preco +");");
+        }catch (Exception e){
+            return false;
+        }
+        
+        return true;
     }
   
     
