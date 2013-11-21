@@ -103,7 +103,6 @@ public class BuscarFuncionario extends javax.swing.JFrame {
         if (!"".equals(nome.getText())) {
             select += "WHERE UPPER(nome) like '%" + nome.getText().toUpperCase() + "%'";
         }
-        System.out.println(select);
         String valores[][];
         String colunas[] = {"Nome", "CPF", "Telefone", "Função"};
         ResultSet res = DB.getInstance().pesquisa(select);
