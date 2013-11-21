@@ -969,6 +969,7 @@ public class InitialInterface extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         CadastrarFuncionario aux = new CadastrarFuncionario();
+        aux.setDefaultCloseOperation(HIDE_ON_CLOSE);
         aux.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -1152,8 +1153,10 @@ public class InitialInterface extends javax.swing.JFrame {
 
     void setMenuAdmin(boolean b) {
        this.menuAdmin.setEnabled(b);
-       this.abaCliente.setVisible(b);
-       this.abaVenda.setVisible(b);
+       this.jPanel1.setVisible(b);
+       this.jPanel6.setVisible(b);
+       this.jPanel2.setVisible(b);
+       this.jPanel7.setVisible(b);
     }
 
     
