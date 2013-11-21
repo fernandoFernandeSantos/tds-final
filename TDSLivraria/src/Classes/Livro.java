@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Classes;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,10 +15,11 @@ import java.sql.ResultSet;
  */
 public class Livro {
     /*
-    Cadastro/Busca de livros (título, autor(es), editora, ISBN, edição, número de páginas e categoria 
-(técnico, romance, infantil, adulto, religioso, literatura brasileira e literatura estrangeira); 
+     Cadastro/Busca de livros (título, autor(es), editora, ISBN, edição, número de páginas e categoria 
+     (técnico, romance, infantil, adulto, religioso, literatura brasileira e literatura estrangeira); 
 
-    */
+     */
+
     private String titulo;
     private String autores;
     private String editora;
@@ -41,10 +43,11 @@ public class Livro {
         this.categoria = categoria;
         this.preco = preco;
     }
-    
-    public void setPreco(float preco){
+
+    public void setPreco(float preco) {
         this.preco = preco;
     }
+
     public String getTitulo() {
         return titulo;
     }
@@ -103,16 +106,49 @@ public class Livro {
 
     public boolean cadastra() {
         ResultSet rs;
-       
-        try{
-            DB.getInstance().insere ("INSERT INTO livros VALUES (default, '" + this.titulo + "', '" + this.autores + "', '" + this.editora+ "', '"+ this.isbn+ "', "+ this.edicao+ ", "+ this.numeroPaginas+ ", "+ this.preco +");");
-        }catch (Exception e){
+
+        try {
+            DB.getInstance().insere("INSERT INTO livros VALUES (default, '" + this.titulo + "', '" + this.autores + "', '" + this.editora + "', '" + this.isbn + "', " + this.edicao + ", " + this.numeroPaginas + ", " + this.preco + ");");
+        } catch (Exception e) {
             return false;
         }
-        
+
         return true;
     }
-  
+
+    public ArrayList getLivros(String titulo) throws SQLException {
+        ArrayList<Livro> retorno = new ArrayList<>();
+        String sql = "SELECT * FROM livros WHERE titulo LIKE '%" + titulo + "%'";
+        ResultSet rs = DB.getInstance().pesquisa(sql);
+
+        while(rs.next()){
+            String tituloO = rs.getString("titulo");
+            String autores = rs.getString("autores");
+            String editora = rs.getString("editora");
+            String ISBN = rs.getString("ISBN");
+            int num_paginas = rs.getInt("numero_paginas");
+            float preco = rs.getFloat("preco");
+            int edicao = rs.getInt("edicao");
+            int id = rs.getInt("id_livro");
+            
+            retorno.add(new Livro(titulo, autores, editora, isbn, edicao, numeroPaginas, categoria, preco));
+            
+        }
+        return retorno;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public float getPreco() {
+        return preco;
+    }
+    
     
     
 }
