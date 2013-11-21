@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package tdslivraria;
-
 
 import Classes.DB;
 
@@ -31,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.ListModel;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -44,13 +43,14 @@ public class InitialInterface extends javax.swing.JFrame {
      */
     private String tipo_funcionario;
     private int id;
-    
+
     public InitialInterface(String tipo, int id) {
         initComponents();
 
         tipo_funcionario = tipo;
         this.id = id;
-     }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,10 +85,10 @@ public class InitialInterface extends javax.swing.JFrame {
         addCliente = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        nomeBuscaCliente = new javax.swing.JTextField();
         buscaCliente = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tabelaBuscaCliente = new javax.swing.JTable();
         abaLivro = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -348,8 +348,8 @@ public class InitialInterface extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Nome:");
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField6.setText("Insira um nome");
+        nomeBuscaCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nomeBuscaCliente.setText("Insira um nome");
 
         buscaCliente.setText("Buscar");
         buscaCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -358,8 +358,8 @@ public class InitialInterface extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaBuscaCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tabelaBuscaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -370,7 +370,7 @@ public class InitialInterface extends javax.swing.JFrame {
                 "Nome", "CPF", "Telefone", "Endereço", "Preferências"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tabelaBuscaCliente);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -380,7 +380,7 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nomeBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buscaCliente)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -395,10 +395,10 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nomeBuscaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscaCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -509,7 +509,7 @@ public class InitialInterface extends javax.swing.JFrame {
                                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(precoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 149, Short.MAX_VALUE))))
+                        .addGap(0, 153, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -777,7 +777,7 @@ public class InitialInterface extends javax.swing.JFrame {
             .addGroup(abaVendaLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addContainerGap(292, Short.MAX_VALUE))
         );
 
         abaPanel.addTab("Venda", abaVenda);
@@ -986,7 +986,7 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         abaPanel.addTab("Alugar / Devolver", jPanel9);
@@ -1047,7 +1047,6 @@ public class InitialInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_tituloPesquisaLivroActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-
     }//GEN-LAST:event_logoutActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -1056,20 +1055,20 @@ public class InitialInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void cadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarLivroActionPerformed
-       Livro novoLivro = new Livro(this.titulo.getText(), this.autores.getText(),
-                                    this.editora.getText(), this.isbn.getText(), Integer.parseInt(this.edicao.getText()),
-                                    (int)((Integer) this.numeroPaginas.getValue()),
-                                   (String) this.comboBoxCategoriasLivro.getSelectedItem(), Float.parseFloat(precoLivro.getText()));
-       if(novoLivro.cadastra()){
-           JOptionPane.showMessageDialog(null,"Cadastrado com sucesso"," ", 1);
-       }else{
-           JOptionPane.showMessageDialog(null,"Não foi possivel cadastrar"," ", 0);
-       }
+        Livro novoLivro = new Livro(this.titulo.getText(), this.autores.getText(),
+                this.editora.getText(), this.isbn.getText(), Integer.parseInt(this.edicao.getText()),
+                (int) ((Integer) this.numeroPaginas.getValue()),
+                (String) this.comboBoxCategoriasLivro.getSelectedItem(), Float.parseFloat(precoLivro.getText()));
+        if (novoLivro.cadastra()) {
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso", " ", 1);
+        } else {
+            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar", " ", 0);
+        }
 
     }//GEN-LAST:event_cadastrarLivroActionPerformed
 
     private void limparCamposLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparCamposLivroActionPerformed
-       this.titulo.setText(null);
+        this.titulo.setText(null);
         this.autores.setText(null);
         this.editora.setText(null);
         this.isbn.setText(null);
@@ -1079,34 +1078,85 @@ public class InitialInterface extends javax.swing.JFrame {
         this.precoLivro.setText(null);
     }//GEN-LAST:event_limparCamposLivroActionPerformed
 
-
     private void buscaLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaLivroActionPerformed
         String livro = this.tituloPesquisaLivro.getText();
         updateTable(livro);
     }//GEN-LAST:event_buscaLivroActionPerformed
 
-    private void updateTable(String titulo){
-        String sql = "SELECT * FROM livros WHERE titulo LIKE '%"+ titulo + "%'";
+    private void updateTable(String titulo) {
+        String sql = "SELECT * FROM livros WHERE titulo LIKE '%" + titulo + "%'";
         ResultSet rs = DB.getInstance().pesquisa(sql);
         this.tabelaPesquisaLivro.setModel(DbUtils.resultSetToTableModel(rs));
-        
+
     }
-    
+
     private void buscaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaClienteActionPerformed
-        // TODO add your handling code here:
+
+        String select = "SELECT * FROM clientes ";
+        if (!"".equals(nomeBuscaCliente.getText())) {
+            select += "WHERE UPPER(nome) like '%" + nomeBuscaCliente.getText().toUpperCase() + "%'";
+        }
+        String valores[][];
+        String colunas[] = {"Nome", "CPF", "Telefone", "Endereço", "Preferências"};
+        ResultSet res = DB.getInstance().pesquisa(select);
+        System.out.println(select);
+//        ResultSet rs = DB.getInstance().pesquisa(select);
+        if (res != null) {
+            try {
+                res.absolute(-1);
+                int rows = res.getRow();
+                res.absolute(1);
+                valores = new String[rows][5];
+                for (int i = 0; i < rows; i++) {
+                    valores[i][0] = res.getString("nome");
+                    valores[i][1] = res.getString("cpf");
+                    valores[i][2] = res.getString("telefone");
+                    valores[i][3] = res.getString("endereco");
+
+                    String sql = "SELECT preferencia FROM preferencias WHERE id_cliente = " + res.getInt("id_cliente");
+                    ResultSet pref = DB.getInstance().pesquisa(sql);
+                    String preferencia = "";
+                    if (pref != null) {
+
+                        pref.absolute(-1);
+                        int rowPref = pref.getRow();
+                        pref.absolute(1);
+                        for (int j = 0; j < rowPref; j++) {
+                            preferencia += pref.getString("preferencia");
+                            if (rowPref - 1 != j) {
+                                preferencia += ", ";
+                            }
+                            pref.next();
+                        }
+
+                    }
+                    valores[i][4] = preferencia;
+
+                    res.next();
+                }
+
+                DefaultTableModel dtm = (DefaultTableModel) tabelaBuscaCliente.getModel();
+                dtm.setDataVector(valores, colunas);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }//GEN-LAST:event_buscaClienteActionPerformed
 
     private void buscaCompraLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaCompraLivroActionPerformed
-        String sql = "SELECT * FROM livros WHERE titulo LIKE '%"+ this.tituloVenda.getText() + "%'";
+        String sql = "SELECT * FROM livros WHERE titulo LIKE '%" + this.tituloVenda.getText() + "%'";
         ResultSet rs = DB.getInstance().pesquisa(sql);
-        
+
         DefaultListModel model = new DefaultListModel(); //create a new list model
         try {
             while (rs.next()) //go through each row that your query returns
             {
                 String ItemList2 = rs.getString("titulo"); //get the element in column "item_code"
                 model.addElement(ItemList2); //add each item to the model
-            }   } catch (SQLException ex) {
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(InitialInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
         listaDisponiveis.setModel(model);
@@ -1119,11 +1169,10 @@ public class InitialInterface extends javax.swing.JFrame {
         listaCompra.setModel(model);
     }//GEN-LAST:event_addCarrinhoActionPerformed
 
-
     private void addCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoriaActionPerformed
-        String item = (String)this.comboBoxCategorias.getSelectedItem();
-        for(int i = 0; i < this.comboBoxCategoriasDeletada.getItemCount(); i++){
-            if(item == this.comboBoxCategoriasDeletada.getItemAt(i)){
+        String item = (String) this.comboBoxCategorias.getSelectedItem();
+        for (int i = 0; i < this.comboBoxCategoriasDeletada.getItemCount(); i++) {
+            if (item == this.comboBoxCategoriasDeletada.getItemAt(i)) {
                 return;
             }
         }
@@ -1131,31 +1180,30 @@ public class InitialInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_addCategoriaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(this.comboBoxCategoriasDeletada.getItemCount() > 0){
+        if (this.comboBoxCategoriasDeletada.getItemCount() > 0) {
             this.comboBoxCategoriasDeletada.removeItemAt(this.comboBoxCategoriasDeletada.getSelectedIndex());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void addClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClienteActionPerformed
         try {
-            Cliente c = new Cliente(email.getText(), endereco.getText(),nomeClienteCadastrar.getText(),cpf.getText(), telefone.getText());
-            if(c.cadastrar(DB.getInstance())){
+            Cliente c = new Cliente(email.getText(), endereco.getText(), nomeClienteCadastrar.getText(), cpf.getText(), telefone.getText());
+            if (c.cadastrar(DB.getInstance())) {
                 System.out.println("id do cliente = " + c.getId());
                 Preferencia p = new Preferencia();
-                for(int i = 0; i < this.comboBoxCategoriasDeletada.getItemCount();i++){
+                for (int i = 0; i < this.comboBoxCategoriasDeletada.getItemCount(); i++) {
                     p.setId_cliente(c.getId());
-                    p.setPreferencia((String)this.comboBoxCategoriasDeletada.getItemAt(i));
+                    p.setPreferencia((String) this.comboBoxCategoriasDeletada.getItemAt(i));
                     p.cadastrar(DB.getInstance());
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "erro no cadastro de cliente");
             }
         } catch (SQLException ex) {
             Logger.getLogger(InitialInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//GEN-LAST:event_addClienteActionPerformed
 
+    }//GEN-LAST:event_addClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1187,13 +1235,10 @@ public class InitialInterface extends javax.swing.JFrame {
 //        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InitialInterface("gerente",3).setVisible(true);
+                new InitialInterface("gerente", 3).setVisible(true);
             }
         });
     }
-
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel abaCliente;
     private javax.swing.JPanel abaLivro;
@@ -1280,8 +1325,6 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JLabel labelTotal;
     private javax.swing.JButton limparCamposLivro;
     private javax.swing.JList listaCompra;
@@ -1290,6 +1333,7 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JList listaDisponiveis2;
     private javax.swing.JCheckBoxMenuItem logout;
     private javax.swing.JMenu menuAdmin;
+    private javax.swing.JTextField nomeBuscaCliente;
     private javax.swing.JTextField nomeClienteAlugar;
     private javax.swing.JTextField nomeClienteCadastrar;
     private javax.swing.JTextField nomeClienteDevolver;
@@ -1298,6 +1342,7 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JButton removeCarrinho;
     private javax.swing.JButton removeCarrinho1;
     private javax.swing.JButton removeCarrinho2;
+    private javax.swing.JTable tabelaBuscaCliente;
     private javax.swing.JTable tabelaPesquisaLivro;
     private javax.swing.JTextField telefone;
     private javax.swing.JTextField titulo;
@@ -1307,12 +1352,10 @@ public class InitialInterface extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void setMenuAdmin(boolean b) {
-       this.menuAdmin.setEnabled(b);
-       this.jPanel1.setVisible(b);
-       this.jPanel6.setVisible(b);
-       this.jPanel2.setVisible(b);
-       this.jPanel7.setVisible(b);
+        this.menuAdmin.setEnabled(b);
+        this.jPanel1.setVisible(b);
+        this.jPanel6.setVisible(b);
+        this.jPanel2.setVisible(b);
+        this.jPanel7.setVisible(b);
     }
-
-    
 }
