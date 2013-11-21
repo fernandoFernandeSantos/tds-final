@@ -99,6 +99,7 @@ public class BuscarFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         String select = "SELECT * FROM funcionarios ";
         if (!"".equals(nome.getText())) {
             select += "WHERE UPPER(nome) like '%" + nome.getText().toUpperCase() + "%'";
@@ -127,6 +128,7 @@ public class BuscarFuncionario extends javax.swing.JFrame {
                 Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

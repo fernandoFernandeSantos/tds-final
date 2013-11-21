@@ -6,18 +6,32 @@
 
 package tdslivraria;
 
+
+import Classes.DB;
+
 import Classes.Cliente;
 import Classes.DB;
+
 import Classes.Livro;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+
 import Classes.Preferencia;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.ListModel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -97,10 +111,10 @@ public class InitialInterface extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        tituloPesquisaLivro = new javax.swing.JTextField();
         buscaLivro = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tabelaPesquisaLivro = new javax.swing.JTable();
         abaVenda = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -109,7 +123,7 @@ public class InitialInterface extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         listaDisponiveis = new javax.swing.JList();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        listaCompra = new javax.swing.JList();
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         removeCarrinho = new javax.swing.JButton();
@@ -338,6 +352,11 @@ public class InitialInterface extends javax.swing.JFrame {
         jTextField6.setText("Insira um nome");
 
         buscaCliente.setText("Buscar");
+        buscaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscaClienteActionPerformed(evt);
+            }
+        });
 
         jTable2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -543,29 +562,34 @@ public class InitialInterface extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel15.setText("Nome:");
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField7.setText("Insira um Título");
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        tituloPesquisaLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tituloPesquisaLivro.setText("Insira um Título");
+        tituloPesquisaLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                tituloPesquisaLivroActionPerformed(evt);
             }
         });
 
         buscaLivro.setText("Buscar");
+        buscaLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscaLivroActionPerformed(evt);
+            }
+        });
 
-        jTable3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaPesquisaLivro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tabelaPesquisaLivro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Título", "Autores", "Editora  ", "ISBN", "Edição", "Número de Páginas", "Categoria"
+                "id", "titulo", "autores  ", "editora", "isbn", "edicao", "numero de paginas", "preço"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tabelaPesquisaLivro);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -577,7 +601,7 @@ public class InitialInterface extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tituloPesquisaLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buscaLivro)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -590,7 +614,7 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tituloPesquisaLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscaLivro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -629,10 +653,15 @@ public class InitialInterface extends javax.swing.JFrame {
         jLabel17.setText("Título:");
 
         buscaCompraLivro.setText("Pesquisar");
+        buscaCompraLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscaCompraLivroActionPerformed(evt);
+            }
+        });
 
         jScrollPane4.setViewportView(listaDisponiveis);
 
-        jScrollPane5.setViewportView(jList1);
+        jScrollPane5.setViewportView(listaCompra);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setText("Disponíveis");
@@ -643,6 +672,11 @@ public class InitialInterface extends javax.swing.JFrame {
         removeCarrinho.setText("Remover do Carrinho");
 
         addCarrinho.setText("Adicionar ao Carrinho");
+        addCarrinho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCarrinhoActionPerformed(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setText("Total:");
@@ -1008,9 +1042,9 @@ public class InitialInterface extends javax.swing.JFrame {
         aux.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void tituloPesquisaLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tituloPesquisaLivroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_tituloPesquisaLivroActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
 
@@ -1044,6 +1078,47 @@ public class InitialInterface extends javax.swing.JFrame {
         this.comboBoxCategoriasLivro.setSelectedItem(0);
         this.precoLivro.setText(null);
     }//GEN-LAST:event_limparCamposLivroActionPerformed
+
+
+    private void buscaLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaLivroActionPerformed
+        String livro = this.tituloPesquisaLivro.getText();
+        updateTable(livro);
+    }//GEN-LAST:event_buscaLivroActionPerformed
+
+    private void updateTable(String titulo){
+        String sql = "SELECT * FROM livros WHERE titulo LIKE '%"+ titulo + "%'";
+        ResultSet rs = DB.getInstance().pesquisa(sql);
+        this.tabelaPesquisaLivro.setModel(DbUtils.resultSetToTableModel(rs));
+        
+    }
+    
+    private void buscaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscaClienteActionPerformed
+
+    private void buscaCompraLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscaCompraLivroActionPerformed
+        String sql = "SELECT * FROM livros WHERE titulo LIKE '%"+ this.tituloVenda.getText() + "%'";
+        ResultSet rs = DB.getInstance().pesquisa(sql);
+        
+        DefaultListModel model = new DefaultListModel(); //create a new list model
+        try {
+            while (rs.next()) //go through each row that your query returns
+            {
+                String ItemList2 = rs.getString("titulo"); //get the element in column "item_code"
+                model.addElement(ItemList2); //add each item to the model
+            }   } catch (SQLException ex) {
+            Logger.getLogger(InitialInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        listaDisponiveis.setModel(model);
+    }//GEN-LAST:event_buscaCompraLivroActionPerformed
+
+    private void addCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCarrinhoActionPerformed
+        DefaultListModel model = new DefaultListModel(); //create a new list model
+        model.addElement(listaCompra.getComponents());
+        model.addElement(listaDisponiveis.getSelectedValue());
+        listaCompra.setModel(model);
+    }//GEN-LAST:event_addCarrinhoActionPerformed
+
 
     private void addCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoriaActionPerformed
         String item = (String)this.comboBoxCategorias.getSelectedItem();
@@ -1080,6 +1155,7 @@ public class InitialInterface extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_addClienteActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1178,7 +1254,6 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JList jList3;
     private javax.swing.JList jList4;
@@ -1206,11 +1281,10 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JLabel labelTotal;
     private javax.swing.JButton limparCamposLivro;
+    private javax.swing.JList listaCompra;
     private javax.swing.JList listaDisponiveis;
     private javax.swing.JList listaDisponiveis1;
     private javax.swing.JList listaDisponiveis2;
@@ -1224,9 +1298,11 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JButton removeCarrinho;
     private javax.swing.JButton removeCarrinho1;
     private javax.swing.JButton removeCarrinho2;
+    private javax.swing.JTable tabelaPesquisaLivro;
     private javax.swing.JTextField telefone;
     private javax.swing.JTextField titulo;
     private javax.swing.JTextField tituloLivroAlugar;
+    private javax.swing.JTextField tituloPesquisaLivro;
     private javax.swing.JTextField tituloVenda;
     // End of variables declaration//GEN-END:variables
 
