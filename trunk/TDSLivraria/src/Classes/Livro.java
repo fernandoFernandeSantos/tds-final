@@ -17,17 +17,18 @@ public class Livro {
 
     */
     private String titulo;
-    private String[] autores;
+    private String autores;
     private String editora;
     private String isbn;
     private String edicao;
-    private String numeroPaginas;
+    private int numeroPaginas;
     private String categoria;
+    private int id;
 
     public Livro() {
     }
 
-    public Livro(String titulo, String[] autores, String editora, String isbn, String edicao, String numeroPaginas, String categoria) {
+    public Livro(String titulo, String autores, String editora, String isbn, String edicao, int numeroPaginas, String categoria) {
         this.titulo = titulo;
         this.autores = autores;
         this.editora = editora;
@@ -45,11 +46,11 @@ public class Livro {
         this.titulo = titulo;
     }
 
-    public String[] getAutores() {
+    public String getAutores() {
         return autores;
     }
 
-    public void setAutores(String[] autores) {
+    public void setAutores(String autores) {
         this.autores = autores;
     }
 
@@ -77,11 +78,11 @@ public class Livro {
         this.edicao = edicao;
     }
 
-    public String getNumeroPaginas() {
+    public int getNumeroPaginas() {
         return numeroPaginas;
     }
 
-    public void setNumeroPaginas(String numeroPaginas) {
+    public void setNumeroPaginas(int numeroPaginas) {
         this.numeroPaginas = numeroPaginas;
     }
 
