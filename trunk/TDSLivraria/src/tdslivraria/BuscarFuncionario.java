@@ -110,9 +110,7 @@ public class BuscarFuncionario extends javax.swing.JFrame {
         if (res != null) {
             try {
                 res.absolute(-1);
-                System.out.println("123");
                 int rows = res.getRow();
-                System.out.println("rows = " + rows);
                 res.absolute(1);
                 valores = new String[rows][4];
                 for (int i = 0; i < rows; i++) {
@@ -125,7 +123,6 @@ public class BuscarFuncionario extends javax.swing.JFrame {
 
                 DefaultTableModel dtm = (DefaultTableModel) tabela.getModel();
                 dtm.setDataVector(valores, colunas);
-                System.out.println("asdasd");
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
