@@ -5,8 +5,6 @@ package Classes;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
@@ -15,23 +13,24 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 public final class DB {
-       Connection con;
-       int x;
-       
-       static private DB INSTANCE;
-    
-    private DB(){
-         this.start();
+
+    Connection con;
+    int x;
+    static private DB INSTANCE;
+
+    private DB() {
+        this.start();
     }
-    public static DB getInstance(){
-        if(INSTANCE   == null){
+
+    public static DB getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new DB();
         }
         return INSTANCE;
-        
+
     }
-    
-    public void start(){
+
+    public void start() {
         try {
             String url = "jdbc:postgresql://localhost:5432/postgres";
             String usuario = "postgres";
@@ -43,8 +42,9 @@ public final class DB {
             JOptionPane.showMessageDialog(null, "Falha ao se conectar no banco de dados", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    public ResultSet pesquisa(String Query){
-        
+
+    public ResultSet pesquisa(String Query) {
+
         Statement stm = null;
         ResultSet rs = null;
         try {
@@ -52,16 +52,16 @@ public final class DB {
             stm = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //stm.executeUpdate("INSERT INTO funcionarios VALUES (default,'Admin', 'admin')");
             rs = stm.executeQuery(Query);
-        //    con.close();
+            //    con.close();
             return rs;
         } catch (SQLException ex) {
             return rs;
         }
-        
+
     }
-    
-    public int insere(String Query){
-        
+
+    public int insere(String Query) {
+
         Statement stm = null;
         //ResultSet rs = null;
         int affectedRows = 0;
@@ -70,15 +70,26 @@ public final class DB {
             stm = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             affectedRows = stm.executeUpdate(Query);
             //rs = stm.executeQuery(Query);
-          //  con.close();
+            //  con.close();
             return affectedRows;
         } catch (SQLException ex) {
             return affectedRows;
         }
-        
+
     }
-    
-    
-    
-    
+
+    public ResultSet insereReturning(String Query) {
+
+        Statement stm = null;
+        //ResultSet rs = null;
+        try {
+            stm = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stm.executeUpdate(Query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet keyset = stm.getGeneratedKeys();
+            return keyset;
+        } catch (SQLException ex) {
+            return null;
+        }
+
+    }
 }

@@ -134,17 +134,7 @@ public class BuscarFuncionario extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                BuscarFuncionario i;
-                i = new BuscarFuncionario();
-                i.setVisible(true);
-                i.setLocationRelativeTo(null);
-
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
