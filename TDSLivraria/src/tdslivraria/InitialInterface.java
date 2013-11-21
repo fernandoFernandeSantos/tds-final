@@ -6,7 +6,13 @@
 
 package tdslivraria;
 
+import Classes.Cliente;
+import Classes.DB;
 import Classes.Livro;
+import Classes.Preferencia;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
@@ -56,7 +62,7 @@ public class InitialInterface extends javax.swing.JFrame {
         addCategoria = new javax.swing.JButton();
         comboBoxCategoriasDeletada = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        nomeClienteCadastrar = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         telefone = new javax.swing.JTextField();
         endereco = new javax.swing.JTextField();
@@ -204,14 +210,29 @@ public class InitialInterface extends javax.swing.JFrame {
         comboBoxCategorias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "técnico", "romance", "infanti", "adulto", "religioso", "literatura brasileira ", "literatura estrangeira" }));
 
         addCategoria.setText("Adicionar Categoria");
+        addCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCategoriaActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Remover Categoria");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         clear.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         clear.setText("Limpar Campos");
 
         addCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         addCliente.setText("Adicionar Cliente");
+        addCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -230,7 +251,7 @@ public class InitialInterface extends javax.swing.JFrame {
                                     .addGap(27, 27, 27)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(nomeClienteCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 472, Short.MAX_VALUE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,7 +296,7 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeClienteCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -1024,10 +1045,46 @@ public class InitialInterface extends javax.swing.JFrame {
         this.precoLivro.setText(null);
     }//GEN-LAST:event_limparCamposLivroActionPerformed
 
+    private void addCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCategoriaActionPerformed
+        String item = (String)this.comboBoxCategorias.getSelectedItem();
+        for(int i = 0; i < this.comboBoxCategoriasDeletada.getItemCount(); i++){
+            if(item == this.comboBoxCategoriasDeletada.getItemAt(i)){
+                return;
+            }
+        }
+        this.comboBoxCategoriasDeletada.addItem(item);
+    }//GEN-LAST:event_addCategoriaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(this.comboBoxCategoriasDeletada.getItemCount() > 0){
+            this.comboBoxCategoriasDeletada.removeItemAt(this.comboBoxCategoriasDeletada.getSelectedIndex());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void addClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addClienteActionPerformed
+        try {
+            Cliente c = new Cliente(email.getText(), endereco.getText(),nomeClienteCadastrar.getText(),cpf.getText(), telefone.getText());
+            if(c.cadastrar(DB.getInstance())){
+                System.out.println("id do cliente = " + c.getId());
+                Preferencia p = new Preferencia();
+                for(int i = 0; i < this.comboBoxCategoriasDeletada.getItemCount();i++){
+                    p.setId_cliente(c.getId());
+                    p.setPreferencia((String)this.comboBoxCategoriasDeletada.getItemAt(i));
+                    p.cadastrar(DB.getInstance());
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "erro no cadastro de cliente");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InitialInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_addClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
+    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
 //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1052,12 +1109,12 @@ public class InitialInterface extends javax.swing.JFrame {
 //        //</editor-fold>
 //
 //        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new InitialInterface().setVisible(true);
-//            }
-//        });
-//    }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InitialInterface("gerente",3).setVisible(true);
+            }
+        });
+    }
 
 
     
@@ -1150,7 +1207,6 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JLabel labelTotal;
@@ -1161,6 +1217,7 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem logout;
     private javax.swing.JMenu menuAdmin;
     private javax.swing.JTextField nomeClienteAlugar;
+    private javax.swing.JTextField nomeClienteCadastrar;
     private javax.swing.JTextField nomeClienteDevolver;
     private javax.swing.JSpinner numeroPaginas;
     private javax.swing.JTextField precoLivro;

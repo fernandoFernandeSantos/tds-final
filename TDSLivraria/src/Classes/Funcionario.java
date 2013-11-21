@@ -73,7 +73,6 @@ public class Funcionario extends Pessoa {
         values += "'" + this.getTelefone() + "', ";
         values += "'" + this.getFuncao() + "')";
         
-        System.out.println(insert+values);
         int af = instance.insere(insert+values);
         if(af > 0){
             return true;
