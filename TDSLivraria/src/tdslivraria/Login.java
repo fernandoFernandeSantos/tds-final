@@ -6,6 +6,13 @@
 
 package tdslivraria;
 
+import Classes.DB;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author marcio
@@ -110,12 +117,41 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordBoxActionPerformed
 
     private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLoginActionPerformed
-      InitialInterface inter = new InitialInterface();
-      inter.setVisible(true);
-      inter.setLocationRelativeTo(null);
-      this.setVisible(false);
-      inter.setMenuAdmin(true);
-     
+      
+        String select = "SELECT id_funcionario, funcao ";
+        String from = "FROM funcionarios ";
+        String where = "WHERE senha = '" + new String(this.passwordBox.getPassword()) + "' AND UPPER(nome) = UPPER('" + this.userBox.getText()+"')";
+        
+//        String a = new String(this.passwordBox.getPassword());
+//        String where = "WHERE nome = '" + this.userBox.getText()+"'";
+        
+        System.out.println(select + from + where);
+        ResultSet res = DB.getInstance().pesquisa(select + from + where);
+        
+        InitialInterface inter;
+        try {
+            if(res.next()){
+                if("gerente".equals(res.getString("funcao"))){
+                    System.out.println("asdasdsad");
+                    inter = new InitialInterface(res.getString("funcao"), res.getInt("id_funcionario"));
+                    inter.setMenuAdmin(true);
+                    inter.setVisible(true);
+                    this.setVisible(false);
+                }else if("vendedor".equals(res.getString("funcao"))){
+                    inter = new InitialInterface(res.getString("funcao"), res.getInt("id_funcionario"));
+                    inter.setVisible(true);
+                    inter.setMenuAdmin(false);
+                    this.setVisible(false);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Voce nao tem permisao apra acessar o sistema");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "LOgin ou senha incorretos");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
       
       
     }//GEN-LAST:event_botaoLoginActionPerformed
@@ -135,7 +171,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

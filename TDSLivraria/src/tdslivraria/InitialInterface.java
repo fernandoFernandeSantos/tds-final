@@ -20,8 +20,13 @@ public class InitialInterface extends javax.swing.JFrame {
     /**
      * Creates new form InitialInterface
      */
-    public InitialInterface() {
+    private String tipo_funcionario;
+    private int id;
+    
+    public InitialInterface(String tipo, int id) {
         initComponents();
+        tipo_funcionario = tipo;
+        this.id = id;
      }
 
     /**
@@ -1123,6 +1128,8 @@ public class InitialInterface extends javax.swing.JFrame {
 
     void setMenuAdmin(boolean b) {
        this.menuAdmin.setEnabled(b);
+       this.abaCliente.setVisible(b);
+       this.abaVenda.setVisible(b);
     }
 
     
