@@ -129,7 +129,6 @@ public class Login extends javax.swing.JFrame {
         Funcionario f = Funcionario.logar(this.userBox.getText(), new String(this.passwordBox.getPassword()), DB.getInstance());
         if (f != null) {
             if ("gerente".equals(f.getFuncao())) {
-                System.out.println("asdasdsad");
                 inter = new InitialInterface(f.getFuncao(), f.getId());
                 inter.setMenuAdmin(true);
                 inter.setVisible(true);

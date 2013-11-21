@@ -48,7 +48,8 @@ public final class DB {
         Statement stm = null;
         ResultSet rs = null;
         try {
-            stm = con.createStatement();
+//            stm = con.createStatement();
+            stm = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //stm.executeUpdate("INSERT INTO funcionarios VALUES (default,'Admin', 'admin')");
             rs = stm.executeQuery(Query);
         //    con.close();
@@ -65,7 +66,8 @@ public final class DB {
         //ResultSet rs = null;
         int affectedRows = 0;
         try {
-            stm = con.createStatement();
+//            stm = con.createStatement();
+            stm = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             affectedRows = stm.executeUpdate(Query);
             //rs = stm.executeQuery(Query);
           //  con.close();

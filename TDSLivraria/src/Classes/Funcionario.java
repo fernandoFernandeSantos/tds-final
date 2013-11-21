@@ -88,7 +88,6 @@ public class Funcionario extends Pessoa {
         Funcionario f = null;
         ResultSet res = DB.getInstance().pesquisa(select + from + where);
         try {
-            System.out.println("asdasd");
             if(res.next()){
                 f = new Funcionario(res.getString("login"),
                         res.getString("senha"),
