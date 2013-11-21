@@ -3,8 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package tdslivraria;
+
+import Classes.DB;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,7 +38,7 @@ public class BuscarFuncionario extends javax.swing.JFrame {
         nome = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,7 +52,7 @@ public class BuscarFuncionario extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -57,7 +63,7 @@ public class BuscarFuncionario extends javax.swing.JFrame {
                 "Nome", "CPF", "Telefone", "Função"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,20 +99,61 @@ public class BuscarFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String select = "Select "
+        String select = "SELECT * FROM funcionarios ";
+        if (!"".equals(nome.getText())) {
+            select += "WHERE UPPER(nome) like '%" + nome.getText().toUpperCase() + "%'";
+        }
+        System.out.println(select);
+        String valores[][];
+        String colunas[] = {"Nome", "CPF", "Telefone", "Função"};
+        ResultSet res = DB.getInstance().pesquisa(select);
+        if (res != null) {
+            try {
+                res.absolute(-1);
+                System.out.println("123");
+                int rows = res.getRow();
+                System.out.println("rows = " + rows);
+                res.absolute(1);
+                valores = new String[rows][4];
+                for (int i = 0; i < rows; i++) {
+                    valores[i][0] = res.getString("nome");
+                    valores[i][1] = res.getString("cpf");
+                    valores[i][2] = res.getString("telefone");
+                    valores[i][3] = res.getString("funcao");
+                    res.next();
+                }
+
+                DefaultTableModel dtm = (DefaultTableModel) tabela.getModel();
+                dtm.setDataVector(valores, colunas);
+                System.out.println("asdasd");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                BuscarFuncionario i;
+                i = new BuscarFuncionario();
+                i.setVisible(true);
+                i.setLocationRelativeTo(null);
 
-
-
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nome;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

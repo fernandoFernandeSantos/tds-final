@@ -6,11 +6,21 @@
 
 package tdslivraria;
 import Classes.DB;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author marcelo-note
  */
 public class teste {
     
+    public static void main(String[] args) throws SQLException{
+        DB instance = DB.getInstance();
+        
+        ResultSet res = instance.pesquisa("SELECT * FROM funcionarios");
+        
+        res.absolute(-1);
+        System.out.println(res.getRow());
+    }
 
 }
