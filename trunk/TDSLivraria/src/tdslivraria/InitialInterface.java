@@ -9,6 +9,7 @@ import Classes.DB;
 
 import Classes.Cliente;
 import Classes.DB;
+import Classes.Funcionario;
 
 import Classes.Livro;
 
@@ -63,6 +64,7 @@ public class InitialInterface extends javax.swing.JFrame {
         this.buttonGroup1.add(this.radioVista);
         this.buttonGroup1.add(this.radioCheque);
         this.buttonGroup1.add(this.cartaoRadio);
+        this.spinnerParcelas.setValue(1);
     }
 
 
@@ -770,6 +772,13 @@ public class InitialInterface extends javax.swing.JFrame {
 
         cartaoRadio.setText("Cartão de Crédito");
 
+        spinnerParcelas.setToolTipText("");
+        spinnerParcelas.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinnerParcelasStateChanged(evt);
+            }
+        });
+
         jLabel32.setText("Parcelas");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1434,8 +1443,33 @@ public class InitialInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoDesistirdaCompraActionPerformed
 
     private void botaoComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoComprarActionPerformed
-        
+        int parcelas = (int) this.spinnerParcelas.getValue();
+        try {
+            Funcionario f = new Funcionario(tipo_funcionario, tipo_funcionario, tipo_funcionario, 
+                    tipo_funcionario, tipo_funcionario, tipo_funcionario);
+            f.setId(id);
+            if(radioVista.isSelected()){
+                Cliente.venda(comprador, livrosVenda, 1, parcelas, f, "vista");
+            }
+            if(radioBoleto.isSelected()){
+                Cliente.venda(comprador, livrosVenda, 2, parcelas, f, "a_prazo");
+            }
+            if(radioCheque.isSelected()){
+                Cliente.venda(comprador, livrosVenda, 3, parcelas, f, "a_prazo");
+            }
+            if(cartaoRadio.isSelected()){
+                Cliente.venda(comprador, livrosVenda, 4, parcelas, f, "a_prazo");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(InitialInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botaoComprarActionPerformed
+
+    private void spinnerParcelasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerParcelasStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spinnerParcelasStateChanged
+
 
     /**
      * @param args the command line arguments

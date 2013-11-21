@@ -120,8 +120,7 @@ public class Livro {
         ArrayList<Livro> retorno = new ArrayList<>();
         String sql = "SELECT * FROM livros WHERE titulo LIKE '%" + titulo + "%'";
         ResultSet rs = DB.getInstance().pesquisa(sql);
-
-        while(rs.next()){
+        while (rs.next()) {
             String tituloO = rs.getString("titulo");
             String autores = rs.getString("autores");
             String editora = rs.getString("editora");
@@ -130,9 +129,10 @@ public class Livro {
             float preco = rs.getFloat("preco");
             int edicao = rs.getInt("edicao");
             int id = rs.getInt("id_livro");
-            
+
             retorno.add(new Livro(titulo, autores, editora, isbn, edicao, numeroPaginas, categoria, preco));
-            
+            retorno.get(retorno.size() - 1).setId(id);
+
         }
         return retorno;
     }
@@ -148,7 +148,5 @@ public class Livro {
     public float getPreco() {
         return preco;
     }
-    
-    
-    
+
 }
