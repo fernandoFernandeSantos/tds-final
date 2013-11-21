@@ -13,14 +13,14 @@ abstract class Pessoa {
     String nome;
     String cpf;
     String telefone;
-    String funcao;
-    String email;
-    String endereco;
-    String preferencias;
 
-    public Pessoa() {
+    public Pessoa(String nome, String cpf, String telefone) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
     }
 
+    
     public String getNome() {
         return nome;
     }
@@ -45,36 +45,6 @@ abstract class Pessoa {
         this.telefone = telefone;
     }
 
-    public String getFuncao() {
-        return funcao;
-    }
-
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getPreferencias() {
-        return preferencias;
-    }
-
-    public void setPreferencias(String preferencias) {
-        this.preferencias = preferencias;
-    }
+    
     
 }
