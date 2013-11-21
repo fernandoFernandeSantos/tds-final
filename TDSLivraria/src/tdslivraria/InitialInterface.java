@@ -6,6 +6,7 @@
 
 package tdslivraria;
 
+import Classes.Livro;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
@@ -25,10 +26,10 @@ public class InitialInterface extends javax.swing.JFrame {
     
     public InitialInterface(String tipo, int id) {
         initComponents();
+
         tipo_funcionario = tipo;
         this.id = id;
      }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,15 +77,15 @@ public class InitialInterface extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        comboBoxCategorias1 = new javax.swing.JComboBox();
+        comboBoxCategoriasLivro = new javax.swing.JComboBox();
         titulo = new javax.swing.JTextField();
-        titulo1 = new javax.swing.JTextField();
-        titulo2 = new javax.swing.JTextField();
-        titulo3 = new javax.swing.JTextField();
-        titulo4 = new javax.swing.JTextField();
-        jSpinner1 = new javax.swing.JSpinner();
-        jButton2 = new javax.swing.JButton();
-        limparLivro = new javax.swing.JButton();
+        editora = new javax.swing.JTextField();
+        autores = new javax.swing.JTextField();
+        isbn = new javax.swing.JTextField();
+        edicao = new javax.swing.JTextField();
+        numeroPaginas = new javax.swing.JSpinner();
+        cadastrarLivro = new javax.swing.JButton();
+        limparCamposLivro = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -94,7 +95,7 @@ public class InitialInterface extends javax.swing.JFrame {
         abaVenda = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        titulo5 = new javax.swing.JTextField();
+        tituloVenda = new javax.swing.JTextField();
         buscaCompraLivro = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         listaDisponiveis = new javax.swing.JList();
@@ -111,7 +112,7 @@ public class InitialInterface extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        titulo6 = new javax.swing.JTextField();
+        nomeClienteDevolver = new javax.swing.JTextField();
         buscaCompraLivro1 = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         listaDisponiveis1 = new javax.swing.JList();
@@ -123,7 +124,7 @@ public class InitialInterface extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
-        titulo7 = new javax.swing.JTextField();
+        tituloLivroAlugar = new javax.swing.JTextField();
         buscaCompraLivro2 = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         listaDisponiveis2 = new javax.swing.JList();
@@ -134,7 +135,7 @@ public class InitialInterface extends javax.swing.JFrame {
         removeCarrinho2 = new javax.swing.JButton();
         addCarrinho1 = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
-        titulo8 = new javax.swing.JTextField();
+        nomeClienteAlugar = new javax.swing.JTextField();
         buscaCompraLivro4 = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
         jList4 = new javax.swing.JList();
@@ -254,7 +255,7 @@ public class InitialInterface extends javax.swing.JFrame {
                         .addComponent(comboBoxCategoriasDeletada, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(52, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(clear)
@@ -378,8 +379,6 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.getAccessibleContext().setAccessibleName("Buscar");
-
         abaPanel.addTab("Cadastrar Cliente / Buscar Cliente", abaCliente);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastrar"));
@@ -406,13 +405,23 @@ public class InitialInterface extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Categoria:");
 
-        comboBoxCategorias1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "técnico", "romance", "infanti", "adulto", "religioso", "literatura brasileira ", "literatura estrangeira" }));
+        comboBoxCategoriasLivro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "técnico", "romance", "infanti", "adulto", "religioso", "literatura brasileira ", "literatura estrangeira" }));
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton2.setText("Cadastrar Livro");
+        cadastrarLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cadastrarLivro.setText("Cadastrar Livro");
+        cadastrarLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarLivroActionPerformed(evt);
+            }
+        });
 
-        limparLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        limparLivro.setText("Limpar Campos");
+        limparCamposLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        limparCamposLivro.setText("Limpar Campos");
+        limparCamposLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparCamposLivroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -433,21 +442,21 @@ public class InitialInterface extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(titulo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(titulo2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE))
+                            .addComponent(autores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(titulo4, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(titulo3, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edicao, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editora, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboBoxCategorias1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(comboBoxCategoriasLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(numeroPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(210, 210, 210)
-                                .addComponent(jButton2)
+                                .addComponent(cadastrarLivro)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(limparLivro)))
+                                .addComponent(limparCamposLivro)))
                         .addGap(0, 153, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -460,36 +469,36 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(titulo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(autores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titulo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(titulo4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(numeroPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(52, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboBoxCategorias1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxCategoriasLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14)
-                            .addComponent(jButton2))
+                            .addComponent(cadastrarLivro))
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(limparLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(limparCamposLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -620,7 +629,7 @@ public class InitialInterface extends javax.swing.JFrame {
                         .addGroup(jPanel8Layout.createSequentialGroup()
                             .addComponent(jLabel17)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(titulo5, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tituloVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(buscaCompraLivro))
                         .addGroup(jPanel8Layout.createSequentialGroup()
@@ -660,7 +669,7 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(titulo5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tituloVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscaCompraLivro))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -746,7 +755,7 @@ public class InitialInterface extends javax.swing.JFrame {
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(titulo6, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nomeClienteDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buscaCompraLivro1)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -761,7 +770,7 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(titulo6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nomeClienteDevolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscaCompraLivro1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -769,11 +778,10 @@ public class InitialInterface extends javax.swing.JFrame {
                     .addComponent(jLabel22))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel12Layout.createSequentialGroup()
-                            .addGap(47, 47, 47)
-                            .addComponent(jButton3))
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jButton3))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(removeCarrinho1)
@@ -836,7 +844,7 @@ public class InitialInterface extends javax.swing.JFrame {
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jLabel26)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(titulo8, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nomeClienteAlugar, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buscaCompraLivro4))
                             .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -851,7 +859,7 @@ public class InitialInterface extends javax.swing.JFrame {
                             .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jLabel23)
                                 .addGap(6, 6, 6)
-                                .addComponent(titulo7, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tituloLivroAlugar, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(buscaCompraLivro2)
                                 .addGap(30, 30, 30)
@@ -864,7 +872,7 @@ public class InitialInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(titulo8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nomeClienteAlugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscaCompraLivro4)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -873,7 +881,7 @@ public class InitialInterface extends javax.swing.JFrame {
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titulo7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tituloLivroAlugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23)
                     .addComponent(buscaCompraLivro2)
                     .addComponent(jLabel25))
@@ -977,6 +985,24 @@ public class InitialInterface extends javax.swing.JFrame {
         aux.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void cadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarLivroActionPerformed
+       Livro novoLivro = new Livro(this.titulo.getText(), this.autores.getText(),
+                                    this.editora.getText(), this.isbn.getText(), this.edicao.getText(),
+                                    (int)((Integer) this.numeroPaginas.getValue()),
+                                   (String) this.comboBoxCategoriasLivro.getSelectedItem());
+
+    }//GEN-LAST:event_cadastrarLivroActionPerformed
+
+    private void limparCamposLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparCamposLivroActionPerformed
+       this.titulo.setText(null);
+        this.autores.setText(null);
+        this.editora.setText(null);
+        this.isbn.setText(null);
+        this.edicao.setText(null);
+        this.numeroPaginas.setValue(0);
+        this.comboBoxCategoriasLivro.setSelectedItem(0);
+    }//GEN-LAST:event_limparCamposLivroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1023,6 +1049,7 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JButton addCarrinho1;
     private javax.swing.JButton addCategoria;
     private javax.swing.JButton addCliente;
+    private javax.swing.JTextField autores;
     private javax.swing.JButton botaoComprar;
     private javax.swing.JButton botaoDesistirdaCompra;
     private javax.swing.JButton buscaCliente;
@@ -1031,15 +1058,18 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JButton buscaCompraLivro2;
     private javax.swing.JButton buscaCompraLivro4;
     private javax.swing.JButton buscaLivro;
+    private javax.swing.JButton cadastrarLivro;
     private javax.swing.JButton clear;
     private javax.swing.JComboBox comboBoxCategorias;
-    private javax.swing.JComboBox comboBoxCategorias1;
     private javax.swing.JComboBox comboBoxCategoriasDeletada;
+    private javax.swing.JComboBox comboBoxCategoriasLivro;
     private javax.swing.JTextField cpf;
+    private javax.swing.JTextField edicao;
+    private javax.swing.JTextField editora;
     private javax.swing.JTextField email;
     private javax.swing.JTextField endereco;
+    private javax.swing.JTextField isbn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -1080,8 +1110,6 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -1097,7 +1125,6 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
@@ -1105,25 +1132,22 @@ public class InitialInterface extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JLabel labelTotal;
-    private javax.swing.JButton limparLivro;
+    private javax.swing.JButton limparCamposLivro;
     private javax.swing.JList listaDisponiveis;
     private javax.swing.JList listaDisponiveis1;
     private javax.swing.JList listaDisponiveis2;
     private javax.swing.JCheckBoxMenuItem logout;
     private javax.swing.JMenu menuAdmin;
+    private javax.swing.JTextField nomeClienteAlugar;
+    private javax.swing.JTextField nomeClienteDevolver;
+    private javax.swing.JSpinner numeroPaginas;
     private javax.swing.JButton removeCarrinho;
     private javax.swing.JButton removeCarrinho1;
     private javax.swing.JButton removeCarrinho2;
     private javax.swing.JTextField telefone;
     private javax.swing.JTextField titulo;
-    private javax.swing.JTextField titulo1;
-    private javax.swing.JTextField titulo2;
-    private javax.swing.JTextField titulo3;
-    private javax.swing.JTextField titulo4;
-    private javax.swing.JTextField titulo5;
-    private javax.swing.JTextField titulo6;
-    private javax.swing.JTextField titulo7;
-    private javax.swing.JTextField titulo8;
+    private javax.swing.JTextField tituloLivroAlugar;
+    private javax.swing.JTextField tituloVenda;
     // End of variables declaration//GEN-END:variables
 
     void setMenuAdmin(boolean b) {
